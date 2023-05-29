@@ -3,9 +3,25 @@ class MalValue {
     this.value = value;
   }
 
+  add(otherMalValue) {
+    return this.value + otherMalValue.value;
+  }
+
+  sub(otherMalValue) {
+    return this.value - otherMalValue.value;
+  }
+
+  mul(otherMalValue) {
+    return this.value * otherMalValue.value;
+  }
+
+  div(otherMalValue) {
+    return Math.floor(this.value / otherMalValue.value);
+  }
   pr_str() {
     return this.value.toString();
   }
+
 }
 
 class MalSymbol extends MalValue {
@@ -21,6 +37,10 @@ class MalList extends MalValue {
 
   pr_str() {
     return '(' + this.value.map(x => x.pr_str()).join(' ') + ')';
+  }
+
+  isEmpty() {
+    return this.value.length === 0;
   }
 }
 
