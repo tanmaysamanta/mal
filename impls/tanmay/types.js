@@ -18,6 +18,11 @@ class MalValue {
   div(otherMalValue) {
     return Math.floor(this.value / otherMalValue.value);
   }
+
+  isEqual(otherMalValue) {
+    return this.value === otherMalValue.value;
+  }
+
   pr_str() {
     return this.value.toString();
   }
