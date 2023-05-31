@@ -2,7 +2,7 @@ const readline = require('readline');
 
 const { read_str } = require('./reader.js')
 const { pr_str } = require('./printer.js');
-const { MalSymbol, MalList, MalValue } = require('./types.js');
+const { MalSymbol, MalList, MalValue, MalNil } = require('./types.js');
 const { Env } = require('./env.js');
 
 const rl = readline.createInterface({
@@ -35,6 +35,20 @@ const EVAL = (ast, env) => {
     case 'def!':
       env.set(ast.value[1], EVAL(ast.value[2], env));
       return env.get(ast.value[1]);
+
+    case "let*":
+      const new_env = new Env(env);
+      const bindings = ast.value[1].value;
+
+      for (let index = 0; index < bindings.length; index += 2) {
+        new_env.set(bindings[index], EVAL(bindings[index + 1], new_env));
+      }
+      const expected_value = EVAL(ast.value[2], new_env);
+
+      if (expected_value) {
+        return expected_value;
+      }
+      return new MalNil();
   }
 
   const [fn, ...args] = eval_ast(ast, env).value;
