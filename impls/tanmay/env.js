@@ -1,9 +1,22 @@
+const { MalValue } = require('./types');
+
 class Env {
   #outer
   #data
-  constructor(outer) {
+  constructor(outer, binds, exprs) {
     this.#outer = outer;
     this.#data = {};
+
+    if (binds) {
+      for (let i = 0; i < binds.length; i++) {
+        const bind = binds[i].value;
+        if (exprs[i]) {
+          this.#data[bind] = new MalValue(exprs[i].value);
+        } else {
+          throw `${bind} is not defined`
+        }
+      }
+    }
   }
 
   set(symbol, malValue) {

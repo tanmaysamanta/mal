@@ -3,7 +3,9 @@ const { MalValue,
   MalSymbol,
   MalVector,
   MalNil,
-  MalBoolean } = require('./types.js');
+  MalBoolean,
+  MalString
+} = require('./types.js');
 
 class Reader {
   constructor(tokens) {
@@ -65,6 +67,9 @@ const read_atom = (reader) => {
     return new MalBoolean(token);
   } else if (token === 'nil') {
     return new MalNil(token);
+  }
+  else if (token.match(/^".*"$/)) {
+    return new MalString(token);
   }
 
   return new MalSymbol(token);

@@ -1,3 +1,4 @@
+const { deepEqual } = require('./utils.js');
 class MalValue {
   constructor(value) {
     this.value = value;
@@ -20,7 +21,23 @@ class MalValue {
   }
 
   isEqual(otherMalValue) {
-    return this.value === otherMalValue.value;
+    return deepEqual(this.value, otherMalValue.value);
+  }
+
+  isLessThan(otherMalValue) {
+    return this.value < otherMalValue.value;
+  }
+
+  isGreaterThan(otherMalValue) {
+    return this.value > otherMalValue.value;
+  }
+
+  isLessEqual(otherMalValue) {
+    return this.value <= otherMalValue.value;
+  }
+
+  isGreaterEqual(otherMalValue) {
+    return this.value >= otherMalValue.value;
   }
 
   pr_str() {
@@ -59,6 +76,15 @@ class MalVector extends MalValue {
   }
 }
 
+class MalString extends MalValue {
+  constructor(str) {
+    super(str);
+  }
+
+  pr_str() {
+    return this.value;
+  }
+}
 class MalNil extends MalValue {
   constructor() {
     super(null);
@@ -85,5 +111,6 @@ module.exports = {
   MalList,
   MalVector,
   MalNil,
-  MalBoolean
+  MalBoolean,
+  MalString
 };
