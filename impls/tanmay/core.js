@@ -10,6 +10,6 @@ const count = (arg) => {
 const prn = (args) => {
   console.log(args.map((arg) => arg.pr_str()).join(' '));
   return new MalNil();
-}
+};
 
 module.exports = { count, prn };

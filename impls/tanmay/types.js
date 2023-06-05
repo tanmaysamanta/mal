@@ -85,6 +85,18 @@ class MalString extends MalValue {
     return this.value;
   }
 }
+
+class MalFunction extends MalValue {
+  constructor(ast, binds, env) {
+    super(ast);
+    this.binds = binds;
+    this.env = env;
+  }
+
+  pr_str() {
+    return '#Function';
+  }
+}
 class MalNil extends MalValue {
   constructor() {
     super(null);
@@ -112,5 +124,6 @@ module.exports = {
   MalVector,
   MalNil,
   MalBoolean,
-  MalString
+  MalString,
+  MalFunction
 };

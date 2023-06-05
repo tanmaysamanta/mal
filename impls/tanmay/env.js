@@ -6,14 +6,17 @@ class Env {
   constructor(outer, binds, exprs) {
     this.#outer = outer;
     this.#data = {};
+    this.#setBinds(binds, exprs);
+  }
 
+  #setBinds(binds, exprs) {
     if (binds) {
       for (let i = 0; i < binds.length; i++) {
         const bind = binds[i].value;
         if (exprs[i]) {
           this.#data[bind] = new MalValue(exprs[i].value);
         } else {
-          throw `${bind} is not defined`
+          throw `${bind} is not defined`;
         }
       }
     }
